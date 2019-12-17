@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        #container {
+            line-height: 0%;
+            height: 800px;
+            width: 800px;
+        }
+        #container > div {
+            width: auto;
+            
+        }    
+        #container > div > div{
+        background-color: red;
+        display: inline-block;
+        
+        }
+        .activate {
+            background-color: green !important;
+        }
+        #reset {
+            position: absolute;
+            left: 50%;
+        }
+
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <button id="reset">
+                Create new grid!
+            </button>
+        </div>
+    </body>
+
+<script>
+    function createGrid(sideSize){
+        for (i=0;i<sideSize;i++){
+        const divrow = document.createElement('div');
+            for (j=0;j<sideSize;j++){
+                if (j===1) {console.log(sideSize)}
+            const div = document.createElement('div');
+            div.addEventListener("mouseover", changeColor);
+            divrow.appendChild(div);
+            }
+        container.appendChild(divrow);
+        
+        }
+        const squares = document.querySelectorAll('#container > div > div');
+        const divrowsq = document.querySelectorAll('#container > div');
+        const size = 800/sideSize;
+        squares.forEach(square => {
+            square.style.cssText = `width: ${size}px; height: ${size}px`;
+        });
+        divrowsq.forEach(divrows => { 
+            divrows.style.cssText = `height: ${size}px`;
+        });
+        
+    }
+  
+    function changeColor(event) {
+        const color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        console.log(color);
+        event.target.style.background = color;
+    }
+      
+    function createnewGrid() {
+        const gridSize = prompt("What grid dimensions do you want?");
+        const squares = document.querySelectorAll('#container > div');
+        squares.forEach(square => {
+            square.remove();         
+        });
+        createGrid(gridSize)
+    }
+
+    const button = document.querySelector('#reset');
+
+    button.addEventListener("click", createnewGrid);
+
+</script>
+
+</html>
